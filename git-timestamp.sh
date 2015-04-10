@@ -4,7 +4,7 @@
 #
 # Set's the last modified timestamp of a file to it's repositories commit timestamp. 
 # 
-# Particular useful with docker when building after a new git checkout has been made,
+# Particularly useful with docker when building after a new git checkout has been made,
 # can improve docker build times for composer, bower, npm, etc
 #
 # @see https://github.com/docker/docker/issues/3556
