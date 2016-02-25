@@ -10,26 +10,19 @@
 # @see https://github.com/docker/docker/issues/3556
 ####
 
-usage()
-{
-    echo "Usage: git-timestamp <file>"
-    echo "Set a files last modified time to match it's git commit timestamp."
-}
+set -e
 
 if test $# = 0; then
-    usage
-    exit
+  echo "Usage: git-timestamp <file>"
+  echo "Set a files last modified time to match it's git commit timestamp."
+  exit
 fi
 
-FILE=$1
+for FILE in "$@"
+do
+  REV=$(git rev-list -n 1 HEAD "$FILE");
+  STAMP=$(git log -1 --pretty=format:%ct "$REV")
+  touch -d @"$STAMP" "$FILE"
 
-if [ ! -f $FILE ]; then
-    echo "File not found!"
-    exit
-fi
-
-REV=$(git rev-list -n 1 HEAD "$FILE");
-STAMP=$(git show --pretty=format:%ai --abbrev-commit "$REV" | head -n 1);
-touch -d "$STAMP" $FILE;
-
-echo "Set $FILE to $STAMP"
+  echo "Set $FILE to $STAMP"
+done
