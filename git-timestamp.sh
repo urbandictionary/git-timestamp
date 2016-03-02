@@ -13,8 +13,8 @@
 set -e
 
 if test $# = 0; then
-  echo "Usage: git-timestamp <file>"
-  echo "Set a files last modified time to match it's git commit timestamp."
+  echo "Usage: git-timestamp <files>"
+  echo "Set the files' last modified times to match their git commit timestamps."
   exit
 fi
 
